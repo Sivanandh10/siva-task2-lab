@@ -10,7 +10,7 @@ Hidden files start with a dot. Search the case data for them:
 
     find /root/case -name '.*' -type f
 
-Once you find the .secret file, copy its contents into /root/case/found.txt:
+Once you find the .secret file, copy its contents into found.txt:
 
     cat /root/case/data/.secret > /root/case/found.txt
 

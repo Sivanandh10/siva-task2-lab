@@ -4,13 +4,6 @@ resource "lab" "siva_task2_lab" {
 
   layout = resource.layout.two_column
 
-  page = [
-    resource.page.briefing,
-    resource.page.find_files,
-    resource.page.permissions,
-    resource.page.analyze_logs,
-  ]
-
   settings {
     timelimit {
       duration   = "60m"

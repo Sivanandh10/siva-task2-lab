@@ -20,7 +20,7 @@ The attacker's IP appears most often. Extract it using a pipe chain:
 
 ---
 
-This chain: pulls the first column (IP), sorts them, counts duplicates, sorts by count, takes the top one, and prints just the IP.
+This chain pulls the first column (IP), sorts them, counts duplicates, sorts by count, takes the top one, and prints just the IP.
 
 When both files are created, click **Check** to close the case.
 
