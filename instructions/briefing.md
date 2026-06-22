@@ -1,7 +1,7 @@
-# Case Briefing
+# Linux File Detective
 
-> **Detective, welcome.**
-> A system has been compromised. Your job is to investigate using Linux command-line tools. All evidence is in the /root/case directory.
+> **You are a detective. A system has been compromised.**
+> Your job is to investigate using Linux command-line tools. All evidence is inside the `/root/case` directory.
 
 ---
 
@@ -9,15 +9,21 @@
 
 | Tab | Purpose |
 |-----|---------|
-| **Terminal** | Run your investigation commands |
-| **Evidence Files** | Browse the case files visually |
+| **Terminal** | Run all your investigation commands here |
+| **Editor** | Browse the case files visually with syntax highlighting |
+
+---
+
+## Your environment
+
+An Ubuntu 22.04 container is running with a pre-seeded investigation scenario. The case directory contains hidden files, locked files, and access logs waiting to be analyzed.
 
 ---
 
 ## Get oriented
 
-Start by exploring the case directory:
+Start by exploring the full case directory:
 
     ls -laR /root/case
 
-This lists everything recursively, including hidden files. Note what you see, then click **Next page** to begin.
+This lists everything recursively including hidden files. Look at what is there, then click **Next page** to begin the investigation.
