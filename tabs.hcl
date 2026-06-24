@@ -16,6 +16,6 @@ resource "service" "dashboard" {
   path   = "/"
 }
 
-resource "external_website" "manpages" {
-  url = "https://man7.org/linux/man-pages/"
+resource "external_website" "explainshell" {
+  url = "https://explainshell.com"
 }

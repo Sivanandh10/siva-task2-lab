@@ -18,9 +18,9 @@ resource "layout" "two_column" {
       title  = "Case Dashboard"
       target = resource.service.dashboard
     }
-    tab "manpages" {
-      title  = "Man Pages"
-      target = resource.external_website.manpages
+    tab "explainshell" {
+      title  = "ExplainShell"
+      target = resource.external_website.explainshell
     }
   }
 }
