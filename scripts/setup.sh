@@ -47,3 +47,57 @@ ip route > /root/case/network/routes.txt
 echo 'CASE FILE: Operation Nightfall' > /root/case/README.txt
 echo 'Opened: 2026-06-22' >> /root/case/README.txt
 echo 'Status: ACTIVE INVESTIGATION' >> /root/case/README.txt
+# Case Dashboard server on port 8080
+cat > /root/dashboard.py << 'PYEOF'
+import http.server, os, html
+
+def read(f):
+    try:
+        return open(f).read().strip()
+    except:
+        return "Not yet found"
+
+class Handler(http.server.BaseHTTPRequestHandler):
+    def log_message(self, *a): pass
+    def do_GET(self):
+        findings = {
+            "Secret File": read("/root/case/found.txt"),
+            "Largest File": read("/root/case/biggest.txt"),
+            "File Permissions": read("/root/case/locked.txt") and "Fixed (600)" or "Not fixed",
+            "Error Count": read("/root/case/error_count.txt"),
+            "Top IP": read("/root/case/top_ip.txt"),
+        }
+        rows = ""
+        for k, v in findings.items():
+            status = "found" if v != "Not yet found" else "pending"
+            rows += f'<tr class="{status}"><td>{html.escape(k)}</td><td>{html.escape(str(v))}</td></tr>'
+        page = f"""<!DOCTYPE html>
+<html><head><title>Case Dashboard</title>
+<meta http-equiv="refresh" content="5">
+<style>
+body{{background:#0d1117;color:#c9d1d9;font-family:monospace;padding:24px;margin:0}}
+h1{{color:#58a6ff;border-bottom:1px solid #30363d;padding-bottom:12px;margin-bottom:20px}}
+table{{width:100%;border-collapse:collapse}}
+th{{background:#161b22;padding:12px;text-align:left;color:#8b949e;font-size:12px;letter-spacing:.05em;text-transform:uppercase}}
+td{{padding:12px;border-bottom:1px solid #21262d}}
+tr.found td:first-child{{color:#3fb950}}
+tr.pending td:first-child{{color:#f85149}}
+tr.found td:last-child{{color:#c9d1d9}}
+tr.pending td:last-child{{color:#6e7681;font-style:italic}}
+.badge{{background:#238636;color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;margin-left:8px}}
+.note{{color:#8b949e;font-size:12px;margin-top:16px}}
+</style></head>
+<body>
+<h1>🔍 Case Dashboard <span class="badge">Live</span></h1>
+<table><tr><th>Evidence</th><th>Finding</th></tr>{rows}</table>
+<p class="note">Auto-refreshes every 5 seconds as you complete tasks</p>
+</body></html>"""
+        self.send_response(200)
+        self.send_header("Content-type","text/html")
+        self.end_headers()
+        self.wfile.write(page.encode())
+
+http.server.HTTPServer(("0.0.0.0", 8080), Handler).serve_forever()
+PYEOF
+
+nohup python3 /root/dashboard.py > /var/log/dashboard.log 2>&1 &

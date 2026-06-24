@@ -14,5 +14,13 @@ resource "layout" "two_column" {
       title  = "Evidence Files"
       target = resource.editor.code
     }
+    tab "dashboard" {
+      title  = "Case Dashboard"
+      target = resource.service.dashboard
+    }
+    tab "manpages" {
+      title  = "Man Pages"
+      target = resource.external_website.manpages
+    }
   }
 }

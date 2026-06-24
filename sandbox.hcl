@@ -9,4 +9,7 @@ resource "container" "workstation" {
   network {
     id = resource.network.main.meta.id
   }
+  port {
+    local = 8080
+  }
 }
